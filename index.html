@@ -110,7 +110,7 @@
 <!-- Introduction Section with Image -->
 <section class="hero is-white">
   <div class="hero-body">
-    <div class="container">
+    <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3 has-text-centered mb-6">Introduction</h2>
@@ -118,7 +118,7 @@
           <!-- First part of introduction -->
           <div class="content is-medium">
             <p class="has-text-justified">
-              In drug development, it's crucial to check tissue samples from animals to make sure new drugs are safe. Traditionally, experts manually examine these samples, which takes a lot of time and effort, especially when most samples are normal. Finding abnormal samples is also hard because they’re rare and vary a lot, making it tough to train models using standard supervised learning.
+              In drug development, it's crucial to check tissue samples from animals to make sure new drugs are safe. Traditionally, experts manually examine these samples, which takes a lot of time and effort, especially when most samples are normal. Finding abnormal samples is also hard because they're rare and vary a lot, making it tough to train models using standard supervised learning.
             </p>
           </div>
 
@@ -126,7 +126,7 @@
           <div class="has-text-centered my-6">
             <figure class="image is-inline-block">
               <img src="static/images/Figure1_anomaly_examples.png" alt="Various anomalies" 
-                   style="max-width: 80%; height: auto;"/>
+                   style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>
             </figure>
             <p class="has-text-centered mt-3 is-italic">
               Figure 1: Examples of abnormal tissue on Rat liver at different resolutions. Vacuolation (bubble-like texture) is best seen at 20×. Hypertrophy (cell size changes) is clearer at 10×. Necrosis (dead tissue) is visible at 5×.
@@ -136,7 +136,7 @@
           <!-- Second part of introduction -->
           <div class="content is-medium">
             <p class="has-text-justified">
-              To solve this, our team developed GraphTox, a tool that uses unsupervised learning to detect liver toxicity in rats. Instead of needing labeled abnormal samples, GraphTox learns what “normal” looks like and flags anything that seems off. It uses a resolution-aware foundation model, trained on millions of liver tissue images, and combines this with graph-based feature distillation to detect anomalies more accurately.
+              To solve this, our team developed GraphTox, a tool that uses unsupervised learning to detect liver toxicity in rats. Instead of needing labeled abnormal samples, GraphTox learns what "normal" looks like and flags anything that seems off. It uses a resolution-aware foundation model, trained on millions of liver tissue images, and combines this with graph-based feature distillation to detect anomalies more accurately.
             </p>
             <p class="has-text-justified">
               The main contributions of this work include (1) a resolution-aware foundation model, (2) GraphTox, a graph based feature distillation method for anomaly detection on H&E histology images.
@@ -152,7 +152,7 @@
 <!-- Method Section with Image -->
 <section class="hero is-white">
   <div class="hero-body">
-    <div class="container">
+    <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3 has-text-centered mb-6">Resolution-aware Foundation Model</h2>
@@ -163,7 +163,7 @@
               Whole slide images (WSIs) of tissue are huge and contain details at different zoom levels—like 5×, 10×, and 20× magnification. 
               Pathologists often switch between these zoom levels to spot different types of damage. 
               Most existing digital pathology models ignore these resolution differences. 
-              GraphTox solves this by using a resolution-aware foundation model that understands which zoom level it's looking at. It adds a special “resolution token” to the model so it can learn features specific to each magnification. (Figure 2 (a) and (b))
+              GraphTox solves this by using a resolution-aware foundation model that understands which zoom level it's looking at. It adds a special "resolution token" to the model so it can learn features specific to each magnification. (Figure 2 (a) and (b))
               This helps the model better mimic how pathologists work -- looking at tissue across scales.
             </p>
           </div>
@@ -172,32 +172,36 @@
           <div class="has-text-centered my-6">
             <figure class="image is-inline-block">
               <img src="static/images/Figure 2 workflow.png" alt="Method workflow" 
-                   style="max-width: 80%; height: auto;"/>
+                   style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>
             </figure>
             <p class="has-text-centered mt-3 is-italic">
               Figure 2: Overview of GraphTox.
             </p>
           </div>
-
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Feature distillation Section with Image -->
 <section class="hero is-white">
   <div class="hero-body">
-    <div class="container">
+    <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered mb-6">Results</h2>
+          <h2 class="title is-3 has-text-centered mb-6">GraphTox</h2>
           
           <!-- First part -->
           <div class="content is-medium">
             <p class="has-text-justified">
-              GraphTox doesn’t just look at tissue patches individually -- it builds local graphs that connect patches across different resolutions at the same location. For example, a patch at 5× is linked to nearby patches at 10× and 20×. (Figure 2 (c)) These graphs help the model understand how tissue features change with magnification.
+              GraphTox doesn't just look at tissue patches individually -- it builds local graphs that connect patches across different resolutions at the same location. For example, a patch at 5× is linked to nearby patches at 10× and 20×. (Figure 2 (c)) These graphs help the model understand how tissue features change with magnification.
               
             </p>
             <p class="has-text-justified">
-              Here’s how it works:
+              Here's how it works:
               A teacher model (pretrained on millions of patches) provides high-quality features.
-              A student model tries to copy the teacher’s output using only normal tissue samples.
+              A student model tries to copy the teacher's output using only normal tissue samples.
               If the student struggles to match the teacher on a new sample, it might be abnormal.
             </p>
           </div>
@@ -206,7 +210,7 @@
           <div class="has-text-centered my-6">
             <figure class="image is-inline-block">
               <img src="static/images/results.png" alt="Experimental results" 
-                   style="max-width: 80%; height: auto;"/>
+                   style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>
             </figure>
             <p class="has-text-centered mt-3 is-italic">
               Figure 3: Anomaly detection on a whole slide image.
@@ -218,7 +222,6 @@
             <p class="has-text-justified">
               By comparing the student and teacher outputs across the graph, GraphTox calculates an anomaly score. The higher the score, the more likely the tissue is abnormal. This graph-based approach outperforms other models, including those using GANs or single-resolution feature distillation.
             </p>
-            
           </div>
           <div class="table-container">
             <table class="table is-bordered is-striped is-hoverable is-fullwidth">
